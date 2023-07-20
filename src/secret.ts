@@ -1,13 +1,9 @@
-import { dotenv } from "./deps.ts";
-
-const loadedEnv = dotenv.loadSync({
-  export: true,
-  envPath: ".env.local",
-});
-
-console.log({ loadedEnv });
+import { getEnv, ENV } from "./env.ts";
 
 export const Secret = {
-  DISCORD_TOKEN: Deno.env.get("DISCORD_TOKEN")!,
-  GUILD_ID: Deno.env.get("GUILD_ID")!,
+  APP_ENV: ENV.APP_ENV,
+  DISCORD: {
+    BOT_TOKEN: ENV.DISCORD.BOT_TOKEN,
+    GUILD_ID: ENV.DISCORD.GUILD_ID,
+  },
 };

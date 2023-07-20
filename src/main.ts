@@ -2,7 +2,7 @@ import { discord } from "./deps.ts";
 import { Secret } from "./secret.ts";
 
 const bot = discord.createBot({
-  token: Secret.DISCORD_TOKEN,
+  token: Secret.DISCORD.BOT_TOKEN,
   intents:
     discord.Intents.Guilds |
     discord.Intents.GuildMessages |
@@ -19,8 +19,11 @@ const nekoCommand: discord.CreateSlashApplicationCommand = {
   description: "にゃーん",
 };
 
-await bot.helpers.createGuildApplicationCommand(nekoCommand, Secret.GUILD_ID);
-await bot.helpers.upsertGuildApplicationCommands(Secret.GUILD_ID, [
+await bot.helpers.createGuildApplicationCommand(
+  nekoCommand,
+  Secret.DISCORD.GUILD_ID
+);
+await bot.helpers.upsertGuildApplicationCommands(Secret.DISCORD.GUILD_ID, [
   nekoCommand,
 ]);
 
@@ -33,7 +36,7 @@ bot.events.messageCreate = (b, message) => {
 };
 
 bot.events.interactionCreate = (b, interaction) => {
-  console.log({ interaction });
+  console.dir({ interaction }, { depth: null });
 
   switch (interaction.data?.name) {
     case "neko":
